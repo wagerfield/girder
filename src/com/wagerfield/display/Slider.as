@@ -296,15 +296,11 @@ package com.wagerfield.display
 				{
 					_stage.addEventListener(ModMouseEvent.MOUSE_UP, onMouseUp);
 					_hotspot.addEventListener(ModMouseEvent.MOUSE_DOWN, onMouseDown);
-
-					ModMouseEvent.addGhost(_hotspot, [ModMouseEvent.MOUSE_DOWN]);
 				}
 				else
 				{
 					_stage.removeEventListener(ModMouseEvent.MOUSE_UP, onMouseUp);
 					_hotspot.removeEventListener(ModMouseEvent.MOUSE_DOWN, onMouseDown);
-
-					ModMouseEvent.removeGhost(_hotspot);
 				}
 			}
 		}
