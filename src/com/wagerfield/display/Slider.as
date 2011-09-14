@@ -1,16 +1,16 @@
 ﻿/**
  * Copyright (C) 2011 by Matthew Wagerfield
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -39,7 +39,7 @@ package com.wagerfield.display
 	public class Slider extends SuperSprite
 	{
 		protected var _stage:Stage;
-		
+
 		private var _vertical:Boolean;
 		private var _enabled:Boolean;
 		private var _mouseDown:Boolean;
@@ -74,7 +74,7 @@ package com.wagerfield.display
 
 		/**
 		 * Creates a Slider component for easily modifying a ratio value from 0 - 1 using an interactive drag handle.
-		 * 
+		 *
 		 * @param vertical Specifies the orientation of the Slider. Can be configured either vertically or horizontally.
 		 * @param enabled Enables the Slider; allowing both interaction with the drag handle and control over Slider ratio property.
 		 */
@@ -87,7 +87,6 @@ package com.wagerfield.display
 			configClasses();
 			configDisplay();
 			drawGraphics();
-			addEvents();
 			addChildren();
 
 			addEventListener(Event.ADDED_TO_STAGE, init);
@@ -167,9 +166,6 @@ package com.wagerfield.display
 				endFill();
 			}
 		}
-		private function addEvents():void
-		{
-		}
 		private function addChildren():void
 		{
 			addChild(_display);
@@ -179,9 +175,9 @@ package com.wagerfield.display
 			_offset.addChild(_handle);
 			addChild(_hotspot);
 		}
-		
-		
-		
+
+
+
 		private function update(physics:Boolean):void
 		{
 			if (physics)
@@ -219,9 +215,9 @@ package com.wagerfield.display
 				_getRatio = _setRatio;
 			}
 		}
-		
-		
-		
+
+
+
 		private function onPaint(e:Event):void
 		{
 			update(true);
@@ -234,9 +230,9 @@ package com.wagerfield.display
 		{
 			mouseDown = false;
 		}
-		
-		
-		
+
+
+
 		private function set paint(value:Boolean):void
 		{
 			if (_stage)
@@ -264,12 +260,12 @@ package com.wagerfield.display
 				paint = true;
 			}
 		}
-		
-		
-		
+
+
+
 		/**
 		 * Adds a DisplayObject to the Internal Insert Sprite that is located between the Handle and the Background Sprites.
-		 * 
+		 *
 		 * @param child DisplayObject to add to the Internal Insert Sprite.
 		 */
 		public function insertChild(child:DisplayObject):void
@@ -288,9 +284,9 @@ package com.wagerfield.display
 			_setRatio += 1 / _incs;
 			configDisplay();
 		}
-		
-		
-		
+
+
+
 		/** @param value Enables the Slider allowing both interaction with the drag handle and control over Slider ratio property. */
 		public function set enabled(value:Boolean):void
 		{
@@ -300,11 +296,15 @@ package com.wagerfield.display
 				{
 					_stage.addEventListener(ModMouseEvent.MOUSE_UP, onMouseUp);
 					_hotspot.addEventListener(ModMouseEvent.MOUSE_DOWN, onMouseDown);
+
+					ModMouseEvent.addGhost(_hotspot, [ModMouseEvent.MOUSE_DOWN]);
 				}
 				else
 				{
 					_stage.removeEventListener(ModMouseEvent.MOUSE_UP, onMouseUp);
 					_hotspot.removeEventListener(ModMouseEvent.MOUSE_DOWN, onMouseDown);
+
+					ModMouseEvent.removeGhost(_hotspot);
 				}
 			}
 		}
@@ -378,9 +378,9 @@ package com.wagerfield.display
 		{
 			_inertia = value;
 		}
-		
-		
-		
+
+
+
 		/** Returns a Boolean value specifying whether or not the Slider is currently enabled. */
 		public function get enabled():Boolean
 		{
