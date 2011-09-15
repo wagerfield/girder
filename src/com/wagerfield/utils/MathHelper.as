@@ -76,6 +76,42 @@ package com.wagerfield.utils
 			return seconds;
 		}
 		/**
+		 * Converts seconds to a formatted HH:MM:SS String.
+		 * 
+		 * @param seconds The number of seconds to format.
+		 * @param minimumUnits The minimum number of units to return. 1 = seconds, 2 = minutes & seconds, 3 = hours, minutes & seconds. 
+		 * @param delimiter The delimiter to be used to separate the time units.
+		 */
+		public static function secsToTime(secs:Number, minimumUnits:uint = 2, delimiter:String = ":"):String
+		{
+			var seconds:int = Math.floor(secs % 60);
+			var minutes:int = Math.floor(secs % 3600 / 60);
+			var hours:int = Math.floor(secs / 3600);
+			var time:String = fixedNumber(seconds, 2);
+			
+			if (minutes || minimumUnits > 1)
+			{
+				time = fixedNumber(minutes, 2) + delimiter + time;	 
+			}
+			if (hours || minimumUnits > 2)
+			{
+				time = fixedNumber(hours, 2) + delimiter + time;	 
+			}
+			return time;
+		}
+		/**
+		 * Converts a base 10 unsigned integer to a hexidecimal formatted string.
+		 * 
+		 * @param integer The integer to convert.
+		 * @param prefix The string to prefix to the converted value.
+		 */
+		public static function uintToHexString(integer:uint, prefix:String = "#"):String
+		{
+			var colour:String = integer.toString(16);
+			while (colour.length < 6) colour = '0' + colour;						
+			return prefix + colour;
+		}
+		/**
 		 * Converts seconds to a formatted HH:MM:SS String value.
 		 * 
 		 * @param number Number to convert.
